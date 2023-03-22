@@ -3,13 +3,33 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
+import ProductsList from './components/Products/ProductsList';
+import Checkout from './components/Checkout/Checkout';
+import Header from './components/Header/Header';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
+const router = createBrowserRouter([
+  {
+    path: "/store",
+    element: <ProductsList />,
+  },
+  {
+    path: "/checkout",
+    element: <Checkout />,
+  },
+]);
+
 root.render(
   <React.StrictMode>
-    <App />
+    <Header/>
+    <RouterProvider router={router} />
   </React.StrictMode>
 );
 

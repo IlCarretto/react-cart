@@ -1,4 +1,6 @@
-interface Product {
+// Interfaccia di Product
+export interface Product {
+    id: number
     model: string;
     number_code: string;
     itemsInStock: number;
@@ -7,8 +9,10 @@ interface Product {
     size: Array<string>;
 }
 
-const products: Array<Product> = [
+// Array di prodotti
+const initialState: Array<Product> = [
     {
+        id: 1,
         model: 'Ray-Ban Wayfarer',
         number_code: 'RB3210 2112A',
         itemsInStock: 5,
@@ -17,6 +21,7 @@ const products: Array<Product> = [
         size: ['50 (1pcs)', '52 (3pcs)']
     },
     {
+        id: 2,
         model: 'Ray-Ban Round',
         number_code: 'RB9210 1149',
         itemsInStock: 4,
@@ -25,6 +30,7 @@ const products: Array<Product> = [
         size: ['50 (1pcs)', '52 (3pcs)', '53 (5 pcs)']
     },
     {
+        id: 3,
         model: 'Ray-Ban Clubmaster',
         number_code: 'RB3594 9093CB 53',
         itemsInStock: 3,
@@ -33,6 +39,7 @@ const products: Array<Product> = [
         size: ['50 (1pcs)', '52 (3pcs)']
     },
     {
+        id: 4,
         model: 'Ray-Ban RB3594',
         number_code: 'RB3594 2345 53',
         itemsInStock: 4,
@@ -41,6 +48,7 @@ const products: Array<Product> = [
         size: ['50 (1pcs)', '52 (3pcs)']
     },
     {
+        id: 5,
         model: 'Ray-Ban Aviator',
         number_code: 'RB6211 5122A 50',
         itemsInStock: 3,
@@ -50,4 +58,4 @@ const products: Array<Product> = [
     },
 ];
 
-export default products
+export default initialState;

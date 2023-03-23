@@ -3,35 +3,26 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
-import ProductsList from './components/Products/ProductsList';
-import Checkout from './components/Checkout/Checkout';
-import Header from './components/Header/Header';
+import { Provider } from 'react-redux';
+import { store, useAppSelector } from './redux/store';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { getCartProducts } from './redux/Cart/cartSlice';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
-const router = createBrowserRouter([
-  {
-    path: "/store",
-    element: <ProductsList />,
-  },
-  {
-    path: "/checkout",
-    element: <Checkout />,
-  },
-]);
+document.body.style.background = '#f1f1f1';
+// /Style
 
 root.render(
   <React.StrictMode>
-    <Header/>
-    <RouterProvider router={router} />
+    <Provider store={store}>
+      <App/>
+    </Provider>
   </React.StrictMode>
 );
+
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

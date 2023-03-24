@@ -86,7 +86,9 @@ const ProductItem = ({model, number_code, price, img_url, itemsInStock, size, id
                   })
                 }
             </Select>
-          <Button disabled={!selectedSize} onClick={() => addToCartHandler(id)}>
+          <Button disabled={!selectedSize}
+           onClick={() => {
+            addToCartHandler(id)}}>
             Add
           </Button>
           </form>

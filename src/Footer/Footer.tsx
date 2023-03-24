@@ -31,15 +31,20 @@ const Footer = () => {
             </Button>
           ) : pathname === "/cart" ? (
             <>
-            <p className='me-3'>{cartProducts.length} products added</p>
+            <p className='me-3'>{cartProducts.length} items added</p>
             <Button className={cartProducts.length === 0 ? 'a-disabled' : ''} onClick={() => {navigate("/checkout")}}>
                 Go to Checkout
             </Button>
             </>
           ) : (
-            <Button onClick={() => navigate("/cart")}>
+            <>
+            <p className='me-3'>{cartProducts.length} items added</p>
+            <Button 
+              onClick={() => 
+              navigate("/cart")}>
               Go to Cart
             </Button>
+            </>
           )
         }
       </div>

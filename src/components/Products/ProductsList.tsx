@@ -9,10 +9,12 @@ const ProductHeader = styled.header`
 display: flex;
 justify-content: space-between;
 align-items: center;
+border-bottom: 1px solid black;
 `
 
 const ProductsList = () => {
   const products = useAppSelector((state) => state.products);
+  
   return (
     <>
       <section>
@@ -20,7 +22,6 @@ const ProductsList = () => {
           <h3>LAST PRODUCTS AVAILABLE</h3>
           <p>{products.length} products available</p>
         </ProductHeader>
-        <hr />
         <div className='products-list'>
           <div className='row row-cols-5'>
               {

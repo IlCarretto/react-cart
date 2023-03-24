@@ -28,7 +28,7 @@ export const cartSlice = createSlice({
                 return state.filter(product => product.id !== action.payload);
             }
         },
-        // totalItems: ()
+
     }
 })
 
@@ -40,6 +40,10 @@ export const getCartProducts = (state: RootState) => state.cart;
 export const getTotalPrice = (state: RootState) => state.cart.reduce((total, item) => total +=(item.qty * item.price), 0);
 
 export const getTotalItems = (state: RootState) => state.cart.reduce((total, item) => total + item.qty, 0);
+
+// Metodo che prende il numero di items in stock e ne sottrae la quantità nell'array di products e ritorna il valore
+export const getItemsQty = (state: RootState) => state.cart.map((product) => Math.max(product.itemsInStock - product.qty, 0));
+
 
 // Esporto i reducers
 export const {addToCart, removeFromCart} = cartSlice.actions;

@@ -5,6 +5,7 @@ export interface Product {
     number_code: string;
     itemsInStock: number;
     price: number;
+    selectedSize?: string;
     img_url: string;
     size: Array<string>;
 }

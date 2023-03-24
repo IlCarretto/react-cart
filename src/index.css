@@ -8,3 +8,12 @@
 img {
     max-width: 100%;
 }
+
+p,
+h6 {
+    margin: 0 !important;
+}
+
+.a-disabled {
+    pointer-events: none;
+}

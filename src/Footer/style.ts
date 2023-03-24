@@ -7,11 +7,11 @@ padding: .5rem 1rem;
 border: none;
 border-radius: 5px;
 text-decoration: none;
+cursor: pointer;
 `
 
 export const Box = styled.div`
 display: flex;
-justify-content: end;
 align-items: center;
 position: fixed;
 left: 0;

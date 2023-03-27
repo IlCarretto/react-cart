@@ -41,10 +41,6 @@ export const getTotalPrice = (state: RootState) => state.cart.reduce((total, ite
 
 export const getTotalItems = (state: RootState) => state.cart.reduce((total, item) => total + item.qty, 0);
 
-// Metodo che prende il numero di items in stock e ne sottrae la quantità nell'array di products e ritorna il valore
-export const getItemsQty = (state: RootState) => state.cart.map((product) => Math.max(product.itemsInStock - product.qty, 0));
-
-
 // Esporto i reducers
 export const {addToCart, removeFromCart} = cartSlice.actions;
 

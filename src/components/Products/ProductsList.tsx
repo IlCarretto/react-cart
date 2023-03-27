@@ -23,7 +23,7 @@ const ProductsList = () => {
           <p>{products.length} products available</p>
         </ProductHeader>
         <div className='products-list'>
-          <div className='row row-cols-5'>
+          <div className='row'>
               {
                 products.map((product) => {
                   return (

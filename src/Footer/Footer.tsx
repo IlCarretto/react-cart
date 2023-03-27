@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
-import { getCartProducts } from '../redux/Cart/cartSlice';
+import { getCartProducts, getTotalItems } from '../redux/Cart/cartSlice';
 import { useAppSelector } from '../redux/store';
 import "./style";
 import { Button, Box } from './style';
@@ -10,6 +10,8 @@ const Footer = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const {pathname} = location;  
+
+  const totalItems = useAppSelector(getTotalItems);
   
 
   return (
@@ -38,7 +40,7 @@ const Footer = () => {
             </>
           ) : (
             <>
-            <p className='me-3'>{cartProducts.length} items added</p>
+            <p className='me-3'>{totalItems} items added</p>
             <Button 
               onClick={() => 
               navigate("/cart")}>

@@ -13,7 +13,7 @@ export const cartSlice = createSlice({
     initialState: [] as CartProduct[],
     reducers: {
         addToCart: (state, action: PayloadAction<Product>) => {
-            const productIndex = state.findIndex(product => product.id === action.payload.id);
+            const productIndex = state.findIndex(product => product.id === action.payload.id && product.selectedSize?.size === action.payload.selectedSize?.size);
             if (productIndex !== -1) {
                 state[productIndex].qty += 1;
             } else {
@@ -27,8 +27,7 @@ export const cartSlice = createSlice({
             } else {
                 return state.filter(product => product.id !== action.payload);
             }
-        },
-
+        }
     }
 })
 

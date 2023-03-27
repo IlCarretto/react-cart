@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from "styled-components";
-import { useNavigate } from 'react-router-dom';
+import { useAppSelector } from '../../redux/store';
+import { getTotalItems } from '../../redux/Cart/cartSlice';
 
 const Box = styled.div`
 width: 100%;
@@ -25,13 +26,13 @@ cursor: pointer;
 `
 
 const Checkout = () => {
-  const navigate = useNavigate();
+  const totalItems = useAppSelector(getTotalItems);
 
   return (
     <Box>
       <h4 className='mb-2'>Thank you!</h4>
-      <h4 className='mb-4'>Your 3 products will be shipped soon</h4>
-      <Button onClick={() => {navigate("/")}}>
+      <h4 className='mb-4'>Your {totalItems} {totalItems >= 0 ? 'product' : 'products'} will be shipped soon</h4>
+      <Button href="/">
         Buy more
       </Button>
     </Box>

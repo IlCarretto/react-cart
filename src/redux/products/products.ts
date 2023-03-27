@@ -5,9 +5,19 @@ export interface Product {
     number_code: string;
     itemsInStock: number;
     price: number;
-    selectedSize?: string;
+    selectedSize?: Sizes;
     img_url: string;
-    size: Array<string>;
+    sizes: Sizes[];
+}
+
+export interface Sizes {
+    size: string,
+    qty: number
+}
+
+export interface ProductSizePayload {
+    size: Sizes;
+    product: Product;
 }
 
 // Array di prodotti
@@ -19,7 +29,7 @@ const initialState: Array<Product> = [
         itemsInStock: 5,
         price: 120.60, 
         img_url: 'https://immagini.trovaprezzi.it/varianti/ray_ban_wayfarer_classic_original.jpg',
-        size: ['50 (1pcs)', '52 (3pcs)']
+        sizes: [{size: '50mm', qty: 3}, {size: '52mm', qty: 2}]
     },
     {
         id: 2,
@@ -28,7 +38,7 @@ const initialState: Array<Product> = [
         itemsInStock: 4,
         price: 166.00, 
         img_url: 'https://www.amevista.com/it/image/foto//luxottica/0RJ9547S%20201-8G.jpg',
-        size: ['50 (1pcs)', '52 (3pcs)', '53 (5 pcs)']
+        sizes: [{size: '50mm', qty: 1}, {size: '52mm', qty: 1}, {size: '53mm', qty: 2}]
     },
     {
         id: 3,
@@ -37,7 +47,7 @@ const initialState: Array<Product> = [
         itemsInStock: 3,
         price: 152.00, 
         img_url: 'https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T1/images/I/51kv7vFoWRL._AC_UL1500_.jpg',
-        size: ['50 (1pcs)', '52 (3pcs)']
+        sizes: [{size: '50mm', qty: 2}, {size: '52mm', qty: 2}],
     },
     {
         id: 4,
@@ -46,7 +56,7 @@ const initialState: Array<Product> = [
         itemsInStock: 4,
         price: 259.90, 
         img_url: 'https://www.lentiamo.cz/img/ray-ban-rb3594-9115s0-53/4386-800.webp',
-        size: ['50 (1pcs)', '52 (3pcs)']
+        sizes: [{size: '50mm', qty: 4}],
     },
     {
         id: 5,
@@ -55,7 +65,7 @@ const initialState: Array<Product> = [
         itemsInStock: 3,
         price: 150.90,
         img_url: 'https://www.amevista.com/it/image/foto//luxottica/0RJ9506S%20220-11.jpg',
-        size: ['50 (1pcs)', '52 (3pcs)']
+        sizes: [{size: '50mm', qty: 2}, {size: '52mm', qty: 1}]
     },
 ];
 

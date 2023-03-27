@@ -4,6 +4,9 @@ import ProductItem from './ProductItem'
 import styled from "styled-components";
 import "./style";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { Product, ProductSizePayload, Sizes } from '../../redux/products/products';
+import { useDispatch } from 'react-redux';
+import { selectSize } from '../../redux/products/productSlice';
 
 const ProductHeader = styled.header`
 display: flex;
@@ -23,11 +26,11 @@ const ProductsList = () => {
           <p>{products.length} products available</p>
         </ProductHeader>
         <div className='products-list'>
-          <div className='row'>
+          <div className='row row-cols-5'>
               {
                 products.map((product) => {
                   return (
-                    <ProductItem key={product.id} {...product}/>
+                    <ProductItem key={product.id} product={product}/>
                   )
                 })
               }

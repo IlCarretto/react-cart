@@ -75,7 +75,7 @@ const Cart = () => {
                           </div>
                         </td>
                         <td className="align-middle">{product.number_code}</td>
-                        <td className="align-middle">{product.selectedSize}</td>
+                        <td className="align-middle">{product.selectedSize?.size}</td>
                         <td className="align-middle">
                           <div className='d-flex justify-content-between'>
                             <p>{product.qty}</p>

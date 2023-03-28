@@ -20,6 +20,11 @@ export interface ProductSizePayload {
     product: Product;
 }
 
+export interface PurchaseProductPayload {
+    productId: number;
+    size: string;
+}
+
 // Array di prodotti
 const initialState: Array<Product> = [
     {

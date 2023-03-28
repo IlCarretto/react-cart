@@ -6,7 +6,7 @@ import { Select } from './style';
 import { addToCart, getCartProducts } from '../../redux/Cart/cartSlice';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import formatNumber from '../../utils/formatNumber';
-import { decreaseStock, selectSize } from '../../redux/products/productSlice';
+import { decreaseSizeQty, decreaseStock, selectSize } from '../../redux/products/productSlice';
 
 interface Props {
   product: Product
@@ -14,7 +14,8 @@ interface Props {
 
 const ProductItem = ({product}: Props) => {
   const dispatch = useAppDispatch();
-  const products = useAppSelector((state) => state.products); 
+  const products = useAppSelector((state) => state.products);
+  
   const cartProducts = useAppSelector(getCartProducts);
 
   // Funzione che prende come parametro l'id del prodotto, poi dichiara il singolo prodotto e dispatcha l'azione addToCart
@@ -22,10 +23,10 @@ const ProductItem = ({product}: Props) => {
     const productToAdd = products.find((product) => product.id === productId);
     if (productToAdd) {
       // Calcolo il singolo item nel carrello, se non esiste oppure se la quantità è minore di items in stock non aggiungerlo al carrello
-      const cartItem = cartProducts.find(item => item.id === productToAdd.id);
-      if (!cartItem || productToAdd.itemsInStock > 0) {
+      if (productToAdd.itemsInStock > 0 && productToAdd?.selectedSize?.size) {
         dispatch(addToCart(productToAdd));
         dispatch(decreaseStock(productId));
+        dispatch(decreaseSizeQty({productId: productId, sizeSelected: productToAdd?.selectedSize?.size}));
       }
     }
   }

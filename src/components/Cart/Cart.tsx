@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { getCartProducts, getTotalPrice, removeFromCart, getTotalItems, addToCart } from '../../redux/Cart/cartSlice'
-import { decreaseStock, increaseStock } from '../../redux/products/productSlice';
+import { increaseSizeQty, decreaseStock, increaseStock, decreaseSizeQty } from '../../redux/products/productSlice';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import formatNumber from '../../utils/formatNumber';
 
@@ -29,17 +29,20 @@ const Cart = () => {
   const handleRemoveFromCart = (productId: number) => {
     dispatch(increaseStock(productId));
     dispatch(removeFromCart(productId));
+    const productToAdd = products.find((product) => product.id === productId);
+    if (productToAdd?.selectedSize?.size) {
+    dispatch(increaseSizeQty({productId: productId, sizeSelected: productToAdd?.selectedSize?.size}));
+    }
   }
 
   const addToCartHandler = (productId: number) => {
     const productToAdd = products.find((product) => product.id === productId);
-    // const productInStock = products.map(product => product.id === productId);
     if (productToAdd) {
       // Calcolo il singolo item nel carrello, se non esiste oppure se la quantità è minore di items in stock non aggiungerlo al carrello
-      const cartItem = cartProducts.find(item => item.id === productToAdd.id);
-      if (!cartItem || productToAdd.itemsInStock > 0) {
+      if (productToAdd.itemsInStock > 0 && productToAdd?.selectedSize?.size) {
         dispatch(addToCart(productToAdd));
         dispatch(decreaseStock(productId));
+        dispatch(decreaseSizeQty({productId: productId, sizeSelected: productToAdd?.selectedSize?.size}));
       }
     }
   }

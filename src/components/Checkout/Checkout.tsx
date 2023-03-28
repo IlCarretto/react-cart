@@ -31,7 +31,7 @@ const Checkout = () => {
   return (
     <Box>
       <h4 className='mb-2'>Thank you!</h4>
-      <h4 className='mb-4'>Your {totalItems} {totalItems >= 0 ? 'product' : 'products'} will be shipped soon</h4>
+      <h4 className='mb-4'>Your {totalItems} {totalItems === 1 ? 'product' : 'products'} will be shipped soon</h4>
       <Button href="/">
         Buy more
       </Button>

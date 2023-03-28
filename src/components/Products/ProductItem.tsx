@@ -15,8 +15,6 @@ interface Props {
 const ProductItem = ({product}: Props) => {
   const dispatch = useAppDispatch();
   const products = useAppSelector((state) => state.products);
-  
-  const cartProducts = useAppSelector(getCartProducts);
 
   // Funzione che prende come parametro l'id del prodotto, poi dichiara il singolo prodotto e dispatcha l'azione addToCart
   const addToCartHandler = (productId: number) => {
@@ -27,6 +25,24 @@ const ProductItem = ({product}: Props) => {
         dispatch(addToCart(productToAdd));
         dispatch(decreaseStock(productId));
         dispatch(decreaseSizeQty({productId: productId, sizeSelected: productToAdd?.selectedSize?.size}));
+      }
+    }
+  }
+
+  const disableBtn = (productId: number) => {
+    let qty;
+    for (let i = 0; i < products.length; i++) {
+      if (products[i].id === productId) {
+        for (let j = 0; j < products[i].sizes.length; j++) {
+          if (products[i].sizes[j].size === products[i]?.selectedSize?.size) {
+            qty = products[i].sizes[j].qty;
+            if (qty === 0 || products[i].itemsInStock === 0) {
+              return true;
+            } else {
+              return false;
+            }
+          }
+        }
       }
     }
   }
@@ -80,7 +96,9 @@ const ProductItem = ({product}: Props) => {
                   })
                 }
             </Select>
-          <Button disabled={product.itemsInStock === 0}
+            {/* si deve disabilitare quando la qty della size selezionata è 0 */}
+          <Button disabled={disableBtn(product.id)}
+
            onClick={(e) => {
             e.preventDefault()
             addToCartHandler(product.id)}}>

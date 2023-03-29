@@ -47,6 +47,24 @@ const Cart = () => {
     }
   }
 
+  const disableBtn = (productId: number) => {
+    let qty;
+    for (let i = 0; i < products.length; i++) {
+      if (products[i].id === productId) {
+        for (let j = 0; j < products[i].sizes.length; j++) {
+          if (products[i].sizes[j].size === products[i]?.selectedSize?.size) {
+            qty = products[i].sizes[j].qty;
+            if (qty === 0 || products[i].itemsInStock === 0) {
+              return true;
+            } else {
+              return false;
+            }
+          }
+        }
+      }
+    }
+  }
+
   return (
     <>
       <CartHeader>
@@ -82,7 +100,10 @@ const Cart = () => {
                         <td className="align-middle">
                           <div className='d-flex justify-content-between'>
                             <p>{product.qty}</p>
-                            <button className='btn btn-primary' onClick={() => addToCartHandler(product.id)}>Add</button>
+                            <button 
+                            className='btn btn-primary' 
+                            onClick={() => addToCartHandler(product.id)}
+                            disabled={disableBtn(product.id)}>Add</button>
                           </div>
                         </td>
                         <td className="align-middle">{formatNumber(product.price)}</td>

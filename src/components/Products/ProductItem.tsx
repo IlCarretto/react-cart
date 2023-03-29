@@ -1,12 +1,12 @@
-import React, {useState, useEffect} from 'react'
-import { Product, ProductSizePayload, Sizes } from '../../redux/products/products'
+import React from 'react'
+import { Product, ProductSizePayload } from '../../redux/products/products'
 import { Card, Img, CardText, Button, LastLabel, NormalLabel } from './style';
 import "./style";
 import { Select } from './style';
-import { addToCart, getCartProducts } from '../../redux/Cart/cartSlice';
+import { addToCart, decreaseSizeQtyFromCart } from '../../redux/Cart/cartSlice';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import formatNumber from '../../utils/formatNumber';
-import { decreaseSizeQty, decreaseStock, selectSize } from '../../redux/products/productSlice';
+import { decreaseSizeQtyFromProducts, decreaseStock, selectSize } from '../../redux/products/productSlice';
 
 interface Props {
   product: Product
@@ -24,7 +24,8 @@ const ProductItem = ({product}: Props) => {
       if (productToAdd.itemsInStock > 0 && productToAdd?.selectedSize?.size) {
         dispatch(addToCart(productToAdd));
         dispatch(decreaseStock(productId));
-        dispatch(decreaseSizeQty({productId: productId, sizeSelected: productToAdd?.selectedSize?.size}));
+        dispatch(decreaseSizeQtyFromProducts({productId: productId, sizeSelected: productToAdd?.selectedSize?.size}));
+        dispatch(decreaseSizeQtyFromCart({productId: productId, sizeSelected: productToAdd?.selectedSize?.size}));
       }
     }
   }

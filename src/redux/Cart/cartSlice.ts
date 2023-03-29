@@ -3,7 +3,7 @@ import { Product } from "../products/products";
 import { store } from "../store";
 
 // Estendo l'interfaccia di Product per il Cart, aggiungendo la quantità di tipi singoli scelti
-interface CartProduct extends Product {
+export interface CartProduct extends Product {
     qty: number;
 }
 
@@ -27,7 +27,30 @@ export const cartSlice = createSlice({
             } else {
                 return state.filter(product => product.id !== action.payload);
             }
-        }
+        },
+        // removeFromCart: (state, action: PayloadAction<Product>) => {
+        //     const productIndex = state.findIndex(product => product.id === action.payload.id && product.selectedSize?.size === action.payload.selectedSize?.size);
+        //     const product = state.find(product => product.id === action.payload.id && product.selectedSize?.size === action.payload.selectedSize?.size);
+        //     if (state[productIndex].qty > 1) {
+        //         state[productIndex].qty -= 1;
+        //     } else {
+        //         return state.slice(productIndex, 1);
+        //     }
+        // },
+        decreaseSizeQtyFromCart: (state, action: PayloadAction<{productId: number, sizeSelected: string}>) => {
+            const productIndex = state.findIndex(product => product.id === action.payload.productId);
+            let selectedProduct = state[productIndex];
+            const selectedSizeIndex = selectedProduct.sizes.findIndex(size => size.size === action.payload.sizeSelected);
+            if (selectedProduct.sizes[selectedSizeIndex].qty > 0) {
+                selectedProduct.sizes[selectedSizeIndex].qty -= 1;
+            }
+        },
+        increaseSizeQtyFromCart: (state, action: PayloadAction<{productId: number, sizeSelected: string}>) => {
+            const productIndex = state.findIndex(product => product.id === action.payload.productId);
+            let selectedProduct = state[productIndex];
+            const selectedSizeIndex = selectedProduct.sizes.findIndex(size => size.size === action.payload.sizeSelected);
+            selectedProduct.sizes[selectedSizeIndex].qty += 1;
+        },
     }
 })
 
@@ -41,5 +64,5 @@ export const getTotalPrice = (state: RootState) => state.cart.reduce((total, ite
 export const getTotalItems = (state: RootState) => state.cart.reduce((total, item) => total + item.qty, 0);
 
 // Esporto i reducers
-export const {addToCart, removeFromCart} = cartSlice.actions;
+export const {addToCart, removeFromCart, decreaseSizeQtyFromCart, increaseSizeQtyFromCart} = cartSlice.actions;
 

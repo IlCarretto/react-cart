@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
-import { getCartProducts, getTotalPrice, removeFromCart, getTotalItems, addToCart, decreaseSizeQtyFromCart, increaseSizeQtyFromCart, CartProduct } from '../../redux/Cart/cartSlice'
-import { increaseSizeQtyFromProducts, decreaseStock, increaseStock, } from '../../redux/products/productSlice';
+import { getCartProducts, getTotalPrice, removeFromCart, getTotalItems, addToCart } from '../../redux/Cart/cartSlice'
+import { increaseSizeQty, decreaseStock, increaseStock, decreaseSizeQty } from '../../redux/products/productSlice';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import formatNumber from '../../utils/formatNumber';
 
@@ -31,8 +31,7 @@ const Cart = () => {
     dispatch(removeFromCart(productId));
     const productToAdd = products.find((product) => product.id === productId);
     if (productToAdd?.selectedSize?.size) {
-    dispatch(increaseSizeQtyFromProducts({productId: productId, sizeSelected: productToAdd?.selectedSize?.size}));
-    dispatch(increaseSizeQtyFromCart({productId: productId, sizeSelected: productToAdd?.selectedSize?.size}));
+    dispatch(increaseSizeQty({productId: productId, sizeSelected: productToAdd?.selectedSize?.size}));
     }
   }
 
@@ -43,25 +42,7 @@ const Cart = () => {
       if (productToAdd.itemsInStock > 0 && productToAdd?.selectedSize?.size) {
         dispatch(addToCart(productToAdd));
         dispatch(decreaseStock(productId));
-        dispatch(decreaseSizeQtyFromCart({productId: productId, sizeSelected: productToAdd?.selectedSize?.size}));
-      }
-    }
-  }
-
-  const disableBtn = (cartProductId: number) => {
-    let qty;
-    for (let i = 0; i < cartProducts.length; i++) {
-      if (products[i].id === cartProductId) {
-        for (let j = 0; j < cartProducts[i].sizes.length; j++) {
-          if (cartProducts[i].sizes[j].size === cartProducts[i]?.selectedSize?.size) {
-            qty = cartProducts[i].sizes[j].qty;
-            if (qty === 0 || cartProducts[i].itemsInStock === 0) {
-              return true;
-            } else {
-              return false;
-            }
-          }
-        }
+        dispatch(decreaseSizeQty({productId: productId, sizeSelected: productToAdd?.selectedSize?.size}));
       }
     }
   }
@@ -101,10 +82,7 @@ const Cart = () => {
                         <td className="align-middle">
                           <div className='d-flex justify-content-between'>
                             <p>{product.qty}</p>
-                            <button 
-                            className='btn btn-primary' 
-                            onClick={() => addToCartHandler(product.id)}
-                            disabled={disableBtn(product.id)}>Add</button>
+                            <button className='btn btn-primary' onClick={() => addToCartHandler(product.id)}>Add</button>
                           </div>
                         </td>
                         <td className="align-middle">{formatNumber(product.price)}</td>

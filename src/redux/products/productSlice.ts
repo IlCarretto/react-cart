@@ -20,7 +20,7 @@ export const ProductSlice = createSlice({
                 productToUpdate.selectedSize = action.payload.size
             }
         },
-        decreaseSizeQtyFromProducts: (state, action: PayloadAction<{productId: number, sizeSelected: string}>) => {
+        decreaseSizeQty: (state, action: PayloadAction<{productId: number, sizeSelected: string}>) => {
             const productIndex = state.findIndex(product => product.id === action.payload.productId);
             let selectedProduct = state[productIndex];
             const selectedSizeIndex = selectedProduct.sizes.findIndex(size => size.size === action.payload.sizeSelected);
@@ -28,7 +28,7 @@ export const ProductSlice = createSlice({
                 selectedProduct.sizes[selectedSizeIndex].qty -= 1;
             }
         },
-        increaseSizeQtyFromProducts: (state, action: PayloadAction<{productId: number, sizeSelected: string}>) => {
+        increaseSizeQty: (state, action: PayloadAction<{productId: number, sizeSelected: string}>) => {
             const productIndex = state.findIndex(product => product.id === action.payload.productId);
             let selectedProduct = state[productIndex];
             const selectedSizeIndex = selectedProduct.sizes.findIndex(size => size.size === action.payload.sizeSelected);
@@ -37,4 +37,4 @@ export const ProductSlice = createSlice({
     }
 })
 
-export const {decreaseStock, increaseStock, selectSize, decreaseSizeQtyFromProducts, increaseSizeQtyFromProducts} = ProductSlice.actions;
+export const {decreaseStock, increaseStock, selectSize, decreaseSizeQty, increaseSizeQty} = ProductSlice.actions;
